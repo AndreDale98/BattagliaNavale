@@ -4,15 +4,11 @@ session_start();
 require_once 'Classes/Ship.php';
 require_once 'Classes/Table.php';
 
-if (isset($_SESSION['grigliaNavi'])) {
+$messageError = "Scegli una nave!";
+
+if (isset($_SESSION['tableShip'])) {
 	$tableShip = unserialize($_SESSION['tableShip']);
 } else {
-// 	for ($i=0; $i<10; $i++) {
-// 		for ($ii=0; $ii<10; $ii++) {
-// 			$grigliaNavi[$i][$ii] = 0;
-// 		}
-// 	}
-
 	$tableShip = new Table();
 	$tableShip->initializeTable();
 }
@@ -23,71 +19,69 @@ if (isset($_POST['x']) && isset($_POST['y'])) {
 }
 
 // STEP 2
-if (isset($_GET['nave'])) {
-	$_SESSION['nave'] = $_GET['nave'];
+if (isset($_POST['type'])) {
+	$_SESSION['type'] = $_POST['type'];
 }
 
 // STEP 3
-if (isset($_POST['direzione'])) {
-	$_SESSION['direzione'] = $_POST['direzione'];
+if (isset($_POST['direction'])) {
+	$_SESSION['direction'] = $_POST['direction'];
 }
 
-if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direzione']) && isset($_SESSION['nave'])) {
-
+if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction']) && isset($_SESSION['type'])) {
+	
 	$x = $_SESSION['x'];
 	$y = $_SESSION['y'];
 	$position = Array($x, $y);
-	$direzione = $_SESSION['direzione'];
-	$nave = $_SESSION['nave'];
+	$direction = $_SESSION['direction'];
+	$type = $_SESSION['type'];
 	
-	$ship = new Ship($nave, $direzione, $position);
-	$tableShip[$x][$y] = 1;
-
-// 	$ship->putShip($nave, $direzione, $position);
+	$ship = new Ship($type, $direction, $position);
+	$messageError = $tableShip->putShip($type, $direction, $position);
 
 	$_SESSION['x'] = null;
 	$_SESSION['y'] = null;
-	$_SESSION['nave'] = null;
-	$_SESSION['direzione'] = null;
+	$_SESSION['type'] = null;
+	$_SESSION['direction'] = null;
 
-	$_SESSION['table'] = serialize($tableShip);
+	$_SESSION['tableShip'] = serialize($tableShip);
 }
 
 
 // // STEP 1
 // if (isset($_POST['x']) && isset($_POST['y'])) {
-// 	$_SESSION['x'] = $_POST['x'];
+// 	$_SESSION['x'] = $_POST['x'];	
 // 	$_SESSION['y'] = $_POST['y'];
 // }
 
 // // STEP 2
-// if (isset($_GET['nave'])) {
-// 	$_SESSION['nave'] = $_GET['nave'];
+// if (isset($_GET['type'])) {
+// 	$_SESSION['type'] = $_GET['type'];
 // }
 
 // // STEP 3
-// if (isset($_POST['direzione'])) {
-// 	$_SESSION['direzione'] = $_POST['direzione'];
+// if (isset($_POST['direction'])) {
+// 	$_SESSION['direction'] = $_POST['direction'];
 // }
 
-// // HO TUTTO PER POSIZIONARE LA NAVE
-// if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direzione']) && isset($_SESSION['nave'])) {
+// // HO TUTTO PER POSIZIONARE LA type
+// if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction']) && isset($_SESSION['type'])) {
 // 	$x = $_SESSION['x'];
 // 	$y = $_SESSION['y'];
-// 	$direzione = $_SESSION['direzione'];
-// 	$nave = $_SESSION['nave'];
+// 	$direction = $_SESSION['direction'];
+// 	$type = $_SESSION['type'];
 	
-// 	for ($i=0; $i<$nave; $i++) {
+// 	for ($i=0; $i<$type; $i++) {
 // 		$grigliaNavi[$x][$y] = 1;
-// 		if ($direzione == 'su') {
+// 		if ($direction == 'su') {
 // 			$y--;
 // 		}
 // 	}
 	
 // 	$_SESSION['x'] = null;
 // 	$_SESSION['y'] = null;
-// 	$_SESSION['nave'] = null;
-// 	$_SESSION['direzione'] = null;
+// 	$_SESSION['type'] = null;
+// 	$_SESSION['direction'] = null;
 	
 // 	$_SESSION['grigliaNavi'] = serialize($grigliaNavi);
 // }
@@ -110,21 +104,21 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direzione
                 for ($y = 0; $y < 11; $y++) {
                     echo '<tr class="td">';
                     for ($x = 0; $x < 11; $x++) {
-                        if($x == 0){
-                            echo '<td class="cell" width="30px">'.$y.'</td>';
+                        if($x == 0 && $y == 0){
+                            echo '<td class="cell" width="30px"></td>';
                         }
                         else if($y == 0) {
                             echo '<td class="cell" width="30px">'.$lettere[$x -1].'</td>';
                         }
-                        else if($x == 0 && $y == 0) {
-                            echo '<td class="cell"></td>'; 
+                        else if($x == 0) {
+                            echo '<td class="cell" width="30px">'.$y.'</td>'; 
                         }
                         else {
                             echo '<td class="cell">';
                             echo '<form method="POST" action="main.php">';
                             echo '<input type="hidden" name="x" value="'.($x-1).'">';
                             echo '<input type="hidden" name="y" value="'.($y-1).'">';
-                            echo '<input type="submit" class="button_cell" value="'.$tableShip[$x-1][$y-1].'"></input>'; 
+                            echo '<input type="submit" class="bell" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
                             echo'</form>';
                             echo '</td>'; 
                         }
@@ -140,17 +134,23 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direzione
                 for ($y = 0; $y < 11; $y++) {
                 	echo '<tr class="td">';
                 	for ($x = 0; $x < 11; $x++) {
-                		if($x == 0){
-                			echo '<td class="cell" width="30px">'.$y.'</td>';
+                		if($x == 0 && $y == 0){
+                			echo '<td class="cell" width="30px"></td>';
                 		}
                 		else if($y == 0) {
                 			echo '<td class="cell" width="30px">'.$lettere[$x -1].'</td>';
                 		}
-                		else if($x == 0 && $y == 0) {
-                			echo '<td class="cell"></td>';
+                		else if($x == 0) {
+                			echo '<td class="cell" width="30px">'.$y.'</td>';
                 		}
                 		else {
-                			echo '<td class="cell"><input type="submit" class="button_cell" value=""></input></td>';
+                			echo '<td class="cell">';
+                			echo '<form method="POST" action="main.php">';
+                			echo '<input type="hidden" name="x" value="'.($x-1).'">';
+                			echo '<input type="hidden" name="y" value="'.($y-1).'">';
+                			echo '<input type="submit" class="bell" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
+                			echo'</form>';
+                			echo '</td>';
                 		}
                 	}
                 	echo '</tr>';
@@ -160,18 +160,44 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direzione
             </div>
         </div>
         <div class="info_ship">
-            <div class="info_ship_title">Info Ship</div>
-            <div class="info_ship_content">3 - <a href="?nave=2">Navi</a> || <p> 2 - Navi ||| <p> 2 - Navi |||| <p> 1 - Nave ||||| <p> 
-                <div class="ship_direction">
-                    <form method="POST" action="main.php">
-                    	<button name="direzione" value="su"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
-                    </form>
-                    <button><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-                    <button><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-                    <button><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
-                </div>
+            <div class="info_ship_title">Game info</div>
+	        <div class="info_ship_content">
+<!-- 	            <a href="?type=2">3 - Navi ||</a><p> -->
+<!-- 	            <a href="?type=3">2 - Navi |||</a><p> -->
+<!-- 	            <a href="?type=4">2 - Navi ||||</a><p> -->
+<!-- 	            <a href="?type=5">1 - Navi |||||</a><p>  -->
+	            <form method="POST" action="main.php">
+	            	<button class="type" name="type" value="2">3 - Navi ||</button>
+	            </form>
+	            <form method="POST" action="main.php">
+	    	        <button class="type" name="type" value="3">2 - Navi |||</button>
+	            </form>
+	            <form method="POST" action="main.php">
+	            	<button class="type" name="type" value="4">2 - Navi ||||</button>
+	            </form>
+	            <form method="POST" action="main.php">
+	         	   <button class="type" name="type" value="5">1 - Navi |||||</button>
+	   	        </form>
+   	        </div>
+   	        
+            <div class="ship_direction">
+	            <form method="POST" action="main.php">
+            		<button class="direction" name="direction" value="up"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+            	</form>
+                <form method="POST" action="main.php">
+              		<button class="direction" name="direction" value="left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+              	</form>
+              	<form method="POST" action="main.php">
+             		<button class="direction" name="direction" value="right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+              	</form>
+            	<form method="POST" action="main.php">
+             		<button class="direction" name="direction" value="down"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+              	</form>
+        	</div>
                     
-            Per inserire una nave seleziona il tipo e la direzione. In seguito clicca sulla cella da cui far partire la nave</div>
+            Per inserire una type seleziona il tipo e la direction. In seguito clicca sulla cella da cui far partire la type
+            <?php echo 'errore: '.$messageError?>
+    	</div>
     </body>
 </html>
 
