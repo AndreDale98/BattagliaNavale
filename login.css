@@ -1,0 +1,76 @@
+.body {
+    background-image: url("image/background.jpg");
+    width: auto;
+    //background-repeat: no-repeat;
+    color: white;
+}
+
+a:link {
+    color: white;
+}
+
+.login {
+    height: 40%;
+    width: 50%;
+    border: 3px solid black;
+    margin: 10% auto;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,0.5);
+
+}
+
+.image {
+    height: 100%;
+    width: 49%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    text-align: center;
+    border-right: 1px solid grey;
+    float: left;
+}
+
+.title {
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#titleImage {
+    border-radius: 20px;
+    height: 70%;
+    width: 80%;
+}
+
+.input {
+    float: right;
+    margin-top: 20px;
+    text-align: right;
+    margin-right: 15%;
+    height: 20%;
+}
+
+.play {
+    float: right;
+    width: 50%;
+    height: 20%;
+    padding-top: 20px;
+}
+
+.register {
+    margin-left: 20%;
+    float: left;
+    color: white;
+}
+
+.login-button {
+    margin-right: 20%;
+    float: right;
+}
+
+.error {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
