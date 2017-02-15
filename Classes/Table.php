@@ -7,7 +7,6 @@ class Table {
 	private $table = Array();
 	private $ship;
 	
-	
 	public function __construct(){
 		
 	}
