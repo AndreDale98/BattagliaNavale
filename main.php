@@ -47,44 +47,6 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
 	$_SESSION['tableShip'] = serialize($tableShip);
 }
 
-
-// // STEP 1
-// if (isset($_POST['x']) && isset($_POST['y'])) {
-// 	$_SESSION['x'] = $_POST['x'];	
-// 	$_SESSION['y'] = $_POST['y'];
-// }
-
-// // STEP 2
-// if (isset($_GET['type'])) {
-// 	$_SESSION['type'] = $_GET['type'];
-// }
-
-// // STEP 3
-// if (isset($_POST['direction'])) {
-// 	$_SESSION['direction'] = $_POST['direction'];
-// }
-
-// // HO TUTTO PER POSIZIONARE LA type
-// if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction']) && isset($_SESSION['type'])) {
-// 	$x = $_SESSION['x'];
-// 	$y = $_SESSION['y'];
-// 	$direction = $_SESSION['direction'];
-// 	$type = $_SESSION['type'];
-	
-// 	for ($i=0; $i<$type; $i++) {
-// 		$grigliaNavi[$x][$y] = 1;
-// 		if ($direction == 'su') {
-// 			$y--;
-// 		}
-// 	}
-	
-// 	$_SESSION['x'] = null;
-// 	$_SESSION['y'] = null;
-// 	$_SESSION['type'] = null;
-// 	$_SESSION['direction'] = null;
-	
-// 	$_SESSION['grigliaNavi'] = serialize($grigliaNavi);
-// }
 ?>
 <html>
     <head>
@@ -118,7 +80,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
                             echo '<form method="POST" action="main.php">';
                             echo '<input type="hidden" name="x" value="'.($x-1).'">';
                             echo '<input type="hidden" name="y" value="'.($y-1).'">';
-                            echo '<input type="submit" class="bell" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
+                            echo '<input type="submit" class="buttShip" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
                             echo'</form>';
                             echo '</td>'; 
                         }
@@ -148,7 +110,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
                 			echo '<form method="POST" action="main.php">';
                 			echo '<input type="hidden" name="x" value="'.($x-1).'">';
                 			echo '<input type="hidden" name="y" value="'.($y-1).'">';
-                			echo '<input type="submit" class="bell" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
+                			echo '<input type="submit" class="buttShip" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
                 			echo'</form>';
                 			echo '</td>';
                 		}
@@ -167,16 +129,16 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
 <!-- 	            <a href="?type=4">2 - Navi ||||</a><p> -->
 <!-- 	            <a href="?type=5">1 - Navi |||||</a><p>  -->
 	            <form method="POST" action="main.php">
-	            	<button class="type" name="type" value="2">3 - Navi ||</button>
+	            	<button class="type" name="type" value="2" style="background: url(image/ship2.png); width:400px; height: 55px;"></button>
 	            </form>
 	            <form method="POST" action="main.php">
-	    	        <button class="type" name="type" value="3">2 - Navi |||</button>
+	    	        <button class="type" name="type" value="3" style="background: url(image/ship3.png); width:400px; height: 55px;"></button>
 	            </form>
 	            <form method="POST" action="main.php">
-	            	<button class="type" name="type" value="4">2 - Navi ||||</button>
+	            	<button class="type" name="type" value="4" style="background: url(image/ship4.png); width:400px; height: 55px;"></button>
 	            </form>
 	            <form method="POST" action="main.php">
-	         	   <button class="type" name="type" value="5">1 - Navi |||||</button>
+	         	   <button class="type" name="type" value="5" style="background: url(image/ship5.png); width:400px; height: 55px;"></button>
 	   	        </form>
    	        </div>
    	        
