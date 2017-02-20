@@ -3,7 +3,7 @@
 require_once 'Classes/Ship.php';
 
 class Table {
-
+	
 	private $table = array();
 	
 	private $ships = array();
@@ -44,6 +44,7 @@ class Table {
 		return $this->table;
 	}
 	
+	
 	public function moveShip($direction, $case, $x, $y) {
 		for ($i=0; $i<$case; $i++) {
 			if ($direction == 'up') {
@@ -69,65 +70,267 @@ class Table {
 			
 		switch ($type) {
 			case 2:
-				if(($x + $type) <= 9 && ($y + $type) <= 9 && ($x - $type) >= 0 && ($y - $type) >= 0) {
-					if($this->counters[2] > 0) {
-						$this->ships[] = new Ship($type, $direction, $position);
-						$this->counters[2]--;
-						$this->moveShip($direction, 2, $x, $y);
+				if($direction == 'up'){
+					if(($y - $type) >= -1) {
+						if($this->counters[2] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[2]--;
+							$this->moveShip($direction, 2, $x, $y);
+							
+						} 
+						else {
+							$this->message = "Non hai più navi da 2 disponibili!";
+						}
 					} 
 					else {
-						$this->message = "Non hai più navi da 2 disponibili!";
+						$this->message = "In questa posizione la nave non ci sta!";
 					}
-				} 
-				else {
-					$this->message = "In questa posizione la nave non ci sta!";
+					break;
 				}
-				break;
+				else if($direction == 'down'){
+					if(($y + $type) <= 10) {
+						if($this->counters[2] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[2]--;
+							$this->moveShip($direction, 2, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 2 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
+				else if($direction == 'left') {
+					if(($x - $type) >= -1) {
+						if($this->counters[2] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[2]--;
+							$this->moveShip($direction, 2, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 2 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
+				else if($direction == 'right') {
+					if(($x + $type) <= 10) {
+						if($this->counters[2] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[2]--;
+							$this->moveShip($direction, 2, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 2 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
 			case 3:
-				if(($x + $type) <= 9 && ($y + $type) <= 9 && ($x - $type) >= 0 && ($y - $type) >= 0) {
-					if($this->counters[3] > 0) {
-						$this->ships[] = new Ship($type, $direction, $position);
-						$this->counters[3]--;
-						$this->moveShip($direction, 3, $x, $y);
-					} 
-					else {
-						$this->message = "Non hai più navi da 3 disponibili!";
+				if($direction == 'up') {
+					if(($y - $type) >= -1) {
+						if($this->counters[3] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[3]--;
+							$this->moveShip($direction, 3, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 3 disponibili!";
+						}
 					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
 				} 
-				else {
-					$this->message = "In questa posizione la nave non ci sta!";
+				else if($direction == 'down') {
+					if(($y + $type) <= 10) {
+						if($this->counters[3] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[3]--;
+							$this->moveShip($direction, 3, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 3 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
 				}
-				break;
+				else if($direction == 'left') {
+					if(($x - $type) >= -1) {
+						if($this->counters[3] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[3]--;
+							$this->moveShip($direction, 3, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 3 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
+				else if($direction == 'right') {
+					if(($x + $type) <= 10) {
+						if($this->counters[3] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[3]--;
+							$this->moveShip($direction, 3, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 3 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
 			case 4:
-				if(($x + $type) <= 9 && ($y + $type) <= 9 && ($x - $type) >= 0 && ($y - $type) >= 0) {
-					if($this->counters[4] > 0) {
-						$this->ships[] = new Ship($type, $direction, $position);
-						$this->counters[4]--;
-						$this->moveShip($direction, 4, $x, $y);
-					} 
+				if($direction == 'up') {
+					if(($y - $type) >= -1) {
+						if($this->counters[4] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[4]--;
+							$this->moveShip($direction, 4, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 4 disponibili!";
+						}
+					}
 					else {
-						$this->message = "Non hai più navi da 4 disponibili!";
+						$this->message = "In questa posizione la nave non ci sta!";
 					}
-				} 
-				else {
-					$this->message = "In questa posizione la nave non ci sta!";
+					break;
 				}
-				break;
+				else if($direction == 'down') {
+					if(($y + $type) <= 10) {
+						if($this->counters[4] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[4]--;
+							$this->moveShip($direction, 4, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 4 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
+				else if($direction == 'left') {
+					if(($x - $type) >= -1) {
+						if($this->counters[4] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[4]--;
+							$this->moveShip($direction, 4, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 4 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
+				else if($direction == 'right') {
+					if(($x + $type) <= 10) {
+						if($this->counters[4] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[4]--;
+							$this->moveShip($direction, 4, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 4 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
 			case 5:
-				if(($x + $type) <= 9 && ($y + $type) <= 9 && ($x - $type) >= 0 && ($y - $type) >= 0) {
-					if($this->counters[5] > 0) {
-						$this->ships[] = new Ship($type, $direction, $position);
-						$this->counters[5]--;
-						$this->moveShip($direction, 5, $x, $y);
-					} else {
-						$this->message = "Non hai più navi da 5 disponibili!";
+				if($direction == 'up') {
+					if(($y - $type) >= -1) {
+						if($this->counters[5] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[5]--;
+							$this->moveShip($direction, 5, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 5 disponibili!";
+						}
 					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
 				}
-				else {
-					$this->message = "In questa posizione la nave non ci sta!";
+				else if($direction == 'down') {
+					if(($y + $type) <= 10) {
+						if($this->counters[5] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[5]--;
+							$this->moveShip($direction, 5, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 5 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
 				}
-				break;
-		}
+				else if($direction == 'left') {
+					if(($x - $type) >= -1) {
+						if($this->counters[5] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[5]--;
+							$this->moveShip($direction, 5, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 5 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
+				else if($direction == 'right') {
+					if(($x + $type) <= 10) {
+						if($this->counters[5] > 0) {
+							$this->ships[] = new Ship($type, $direction, $position);
+							$this->counters[5]--;
+							$this->moveShip($direction, 5, $x, $y);
+						}
+						else {
+							$this->message = "Non hai più navi da 5 disponibili!";
+						}
+					}
+					else {
+						$this->message = "In questa posizione la nave non ci sta!";
+					}
+					break;
+				}
+			}
 		return $this->message;
 	}
 }

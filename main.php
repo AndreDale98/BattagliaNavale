@@ -52,7 +52,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <link href="main.css" type="text/css" rel="stylesheet">
+        <link href="CSS/main.css" type="text/css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body class="body">
@@ -129,16 +129,16 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
 <!-- 	            <a href="?type=4">2 - Navi ||||</a><p> -->
 <!-- 	            <a href="?type=5">1 - Navi |||||</a><p>  -->
 	            <form method="POST" action="main.php">
-	            	<button class="type" name="type" value="2" style="background: url(image/ship2.png); width:400px; height: 55px;"></button>
+	            	<button class="type" name="type" value="2" style="background: url(image/ship2.png); background-repeat: no-repeat; width:300px; height: 60px;"><?php $tableShip->counters[2]?></button>
 	            </form>
 	            <form method="POST" action="main.php">
-	    	        <button class="type" name="type" value="3" style="background: url(image/ship3.png); width:400px; height: 55px;"></button>
+	    	        <button class="type" name="type" value="3" style="background: url(image/ship3.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
 	            </form>
 	            <form method="POST" action="main.php">
-	            	<button class="type" name="type" value="4" style="background: url(image/ship4.png); width:400px; height: 55px;"></button>
+	            	<button class="type" name="type" value="4" style="background: url(image/ship4.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
 	            </form>
 	            <form method="POST" action="main.php">
-	         	   <button class="type" name="type" value="5" style="background: url(image/ship5.png); width:400px; height: 55px;"></button>
+	         	   <button class="type" name="type" value="5" style="background: url(image/ship5.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
 	   	        </form>
    	        </div>
    	        
