@@ -29,13 +29,13 @@ if (isset($_POST['direction'])) {
 }
 
 if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction']) && isset($_SESSION['type'])) {
-	
+
 	$x = $_SESSION['x'];
 	$y = $_SESSION['y'];
 	$position = Array($x, $y);
 	$direction = $_SESSION['direction'];
 	$type = $_SESSION['type'];
-	
+
 	$ship = new Ship($type, $direction, $position);
 	$messageError = $tableShip->putShip($type, $direction, $position);
 
@@ -59,9 +59,9 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
         <div class="game_tables">
             <div>
                 <?php
-                
+
                 $lettere = Array("A","B","C","D","E","F","G","H","I","L");
-                
+
                 echo '<table border="1" class="table_ship_hit">';
                 for ($y = 0; $y < 11; $y++) {
                     echo '<tr class="td">';
@@ -73,7 +73,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
                             echo '<td class="cell" width="30px">'.$lettere[$x -1].'</td>';
                         }
                         else if($x == 0) {
-                            echo '<td class="cell" width="30px">'.$y.'</td>'; 
+                            echo '<td class="cell" width="30px">'.$y.'</td>';
                         }
                         else {
                             echo '<td class="cell">';
@@ -82,7 +82,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
                             echo '<input type="hidden" name="y" value="'.($y-1).'">';
                             echo '<input type="submit" class="buttShip" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
                             echo'</form>';
-                            echo '</td>'; 
+                            echo '</td>';
                         }
                     }
                     echo '</tr>';
@@ -110,7 +110,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
                 			echo '<form method="POST" action="main.php">';
                 			echo '<input type="hidden" name="x" value="'.($x-1).'">';
                 			echo '<input type="hidden" name="y" value="'.($y-1).'">';
-                			echo '<input type="submit" class="buttShip" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
+                			echo '<input type="" class="buttShip" value=""></input>';
                 			echo'</form>';
                 			echo '</td>';
                 		}
@@ -129,7 +129,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
 <!-- 	            <a href="?type=4">2 - Navi ||||</a><p> -->
 <!-- 	            <a href="?type=5">1 - Navi |||||</a><p>  -->
 	            <form method="POST" action="main.php">
-	            	<button class="type" name="type" value="2" style="background: url(image/ship2.png); background-repeat: no-repeat; width:300px; height: 60px;"><?php $tableShip->counters[2]?></button>
+	            	<button class="type" name="type" value="2" style="background: url(image/ship2.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
 	            </form>
 	            <form method="POST" action="main.php">
 	    	        <button class="type" name="type" value="3" style="background: url(image/ship3.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
@@ -141,7 +141,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
 	         	   <button class="type" name="type" value="5" style="background: url(image/ship5.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
 	   	        </form>
    	        </div>
-   	        
+
             <div class="ship_direction">
 	            <form method="POST" action="main.php">
             		<button class="direction" name="direction" value="up"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
@@ -156,10 +156,9 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
              		<button class="direction" name="direction" value="down"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
               	</form>
         	</div>
-                    
+
             Per inserire una type seleziona il tipo e la direction. In seguito clicca sulla cella da cui far partire la type
             <?php echo 'errore: '.$messageError?>
     	</div>
     </body>
 </html>
-
