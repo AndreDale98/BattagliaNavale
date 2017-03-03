@@ -3,34 +3,34 @@
 require_once 'Classes/Ship.php';
 
 class Table {
-	
+
 	private $table = array();
-	
+
 	private $ships = array();
-	
+
 	private $message = "";
 	private $counters = array(2 => 3, 3 => 2, 4 => 2, 5 => 1);
 
 	public function __construct(){
-		
+
 	}
-	
+
 	public function setShip($ship) {
 		$this->ship = new Ship();
 	}
-	
+
 	public function getShip() {
 		return $this->ship;
 	}
-	
+
 	public function getTable($x, $y) {
 		return $this->table[$x][$y];
 	}
-	
+
 	public function setTable($x, $y) {
 		$this->table[$x][$y] = 1;
 	}
-	
+
 	public function initializeTable() {
 		for ($i=0; $i<10; $i++) {
 			for ($ii=0; $ii<10; $ii++) {
@@ -39,12 +39,12 @@ class Table {
 		}
 		return $this->table;
 	}
-	
+
 	public function getTableShips() {
 		return $this->table;
 	}
-	
-	
+
+
 	public function moveShip($direction, $case, $x, $y) {
 		for ($i=0; $i<$case; $i++) {
 			if ($direction == 'up') {
@@ -62,12 +62,12 @@ class Table {
 			}
 		}
 	}
-	
+
 	public function putShip($type, $direction, $position) {
 		$x = $position[0];
 		$y = $position[1];
 		$this->message = "";
-			
+
 		switch ($type) {
 			case 2:
 				if($direction == 'up'){
@@ -76,12 +76,12 @@ class Table {
 							$this->ships[] = new Ship($type, $direction, $position);
 							$this->counters[2]--;
 							$this->moveShip($direction, 2, $x, $y);
-							
-						} 
-						else {
-							$this->message = "Non hai pi˘ navi da 2 disponibili!";
+
 						}
-					} 
+						else {
+							$this->message = "Non hai pi√π navi da 2 disponibili!";
+						}
+					}
 					else {
 						$this->message = "In questa posizione la nave non ci sta!";
 					}
@@ -95,7 +95,7 @@ class Table {
 							$this->moveShip($direction, 2, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 2 disponibili!";
+							$this->message = "Non hai pi√π navi da 2 disponibili!";
 						}
 					}
 					else {
@@ -111,7 +111,7 @@ class Table {
 							$this->moveShip($direction, 2, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 2 disponibili!";
+							$this->message = "Non hai pi√π navi da 2 disponibili!";
 						}
 					}
 					else {
@@ -127,7 +127,7 @@ class Table {
 							$this->moveShip($direction, 2, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 2 disponibili!";
+							$this->message = "Non hai pi√π navi da 2 disponibili!";
 						}
 					}
 					else {
@@ -144,14 +144,14 @@ class Table {
 							$this->moveShip($direction, 3, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 3 disponibili!";
+							$this->message = "Non hai pi√π navi da 3 disponibili!";
 						}
 					}
 					else {
 						$this->message = "In questa posizione la nave non ci sta!";
 					}
 					break;
-				} 
+				}
 				else if($direction == 'down') {
 					if(($y + $type) <= 10) {
 						if($this->counters[3] > 0) {
@@ -160,7 +160,7 @@ class Table {
 							$this->moveShip($direction, 3, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 3 disponibili!";
+							$this->message = "Non hai pi√π navi da 3 disponibili!";
 						}
 					}
 					else {
@@ -176,7 +176,7 @@ class Table {
 							$this->moveShip($direction, 3, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 3 disponibili!";
+							$this->message = "Non hai pi√π navi da 3 disponibili!";
 						}
 					}
 					else {
@@ -192,7 +192,7 @@ class Table {
 							$this->moveShip($direction, 3, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 3 disponibili!";
+							$this->message = "Non hai pi√π navi da 3 disponibili!";
 						}
 					}
 					else {
@@ -209,7 +209,7 @@ class Table {
 							$this->moveShip($direction, 4, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 4 disponibili!";
+							$this->message = "Non hai pi√π navi da 4 disponibili!";
 						}
 					}
 					else {
@@ -225,7 +225,7 @@ class Table {
 							$this->moveShip($direction, 4, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 4 disponibili!";
+							$this->message = "Non hai pi√π navi da 4 disponibili!";
 						}
 					}
 					else {
@@ -241,7 +241,7 @@ class Table {
 							$this->moveShip($direction, 4, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 4 disponibili!";
+							$this->message = "Non hai pi√π navi da 4 disponibili!";
 						}
 					}
 					else {
@@ -257,7 +257,7 @@ class Table {
 							$this->moveShip($direction, 4, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 4 disponibili!";
+							$this->message = "Non hai pi√π navi da 4 disponibili!";
 						}
 					}
 					else {
@@ -274,7 +274,7 @@ class Table {
 							$this->moveShip($direction, 5, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 5 disponibili!";
+							$this->message = "Non hai pi√π navi da 5 disponibili!";
 						}
 					}
 					else {
@@ -290,7 +290,7 @@ class Table {
 							$this->moveShip($direction, 5, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 5 disponibili!";
+							$this->message = "Non hai pi√π navi da 5 disponibili!";
 						}
 					}
 					else {
@@ -306,7 +306,7 @@ class Table {
 							$this->moveShip($direction, 5, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 5 disponibili!";
+							$this->message = "Non hai pi√π navi da 5 disponibili!";
 						}
 					}
 					else {
@@ -322,7 +322,7 @@ class Table {
 							$this->moveShip($direction, 5, $x, $y);
 						}
 						else {
-							$this->message = "Non hai pi˘ navi da 5 disponibili!";
+							$this->message = "Non hai pi√π navi da 5 disponibili!";
 						}
 					}
 					else {
