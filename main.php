@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+#unset($_SESSION['tableShip']);
+
 require_once 'Classes/Ship.php';
 require_once 'Classes/Table.php';
 
@@ -10,7 +12,6 @@ if (isset($_SESSION['tableShip'])) {
 	$tableShip = unserialize($_SESSION['tableShip']);
 } else {
 	$tableShip = new Table();
-	$tableShip->initializeTable();
 }
 
 if (isset($_POST['x']) && isset($_POST['y'])) {
@@ -110,7 +111,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
                 			echo '<form method="POST" action="main.php">';
                 			echo '<input type="hidden" name="x" value="'.($x-1).'">';
                 			echo '<input type="hidden" name="y" value="'.($y-1).'">';
-                			echo '<input type="" class="buttShip" value=""></input>';
+                			echo '<input type="submit" class="buttShip" value="'.$tableShip->getTableCPU($x-1,$y-1).'"></input>';
                 			echo'</form>';
                 			echo '</td>';
                 		}
