@@ -7,6 +7,7 @@ require_once 'Classes/Ship.php';
 require_once 'Classes/Table.php';
 
 $messageError = "Scegli una nave!";
+$gameState = "preparation";
 
 if (isset($_SESSION['tableShip'])) {
 	$tableShip = unserialize($_SESSION['tableShip']);
@@ -37,8 +38,9 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
 	$direction = $_SESSION['direction'];
 	$type = $_SESSION['type'];
 
-	$ship = new Ship($type, $direction, $position);
-	$messageError = $tableShip->putShip($type, $direction, $position);
+	// $ship = new Ship($type, $direction, $position);
+	$tableShip->putShip($type, $direction, $position);
+	$gameState = $tableShip->getGameState();
 
 	$_SESSION['x'] = null;
 	$_SESSION['y'] = null;
@@ -81,7 +83,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
                             echo '<form method="POST" action="main.php">';
                             echo '<input type="hidden" name="x" value="'.($x-1).'">';
                             echo '<input type="hidden" name="y" value="'.($y-1).'">';
-                            echo '<input type="submit" class="buttShip" value="'.$tableShip->getTable($x-1,$y-1).'"></input>';
+                            echo '<input type="submit" class="buttShip" style="background-color:'.$tableShip->getTable($x-1,$y-1).'" value=""></input>';
                             echo'</form>';
                             echo '</td>';
                         }
@@ -111,7 +113,7 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
                 			echo '<form method="POST" action="main.php">';
                 			echo '<input type="hidden" name="x" value="'.($x-1).'">';
                 			echo '<input type="hidden" name="y" value="'.($y-1).'">';
-                			echo '<input type="submit" class="buttShip" value="'.$tableShip->getTableCPU($x-1,$y-1).'"></input>';
+                			echo '<input type="submit" class="buttShip" value=""></input>';
                 			echo'</form>';
                 			echo '</td>';
                 		}
@@ -123,43 +125,79 @@ if (isset($_SESSION['x']) && isset($_SESSION['y']) && isset($_SESSION['direction
             </div>
         </div>
         <div class="info_ship">
-            <div class="info_ship_title">Game info</div>
-	        <div class="info_ship_content">
+					<?php
+					if($gameState == "preparation"){
+						echo '<div class="info_ship_title">Game info</div>';
+						echo '<div class="info_ship_content">';
+						echo '	<form method="POST" action="main.php">';
+						echo '		<button class="type" name="type" value="2" style="background: url(image/ship2.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>';
+						echo '	</form>';
+						echo '	<form method="POST" action="main.php">';
+						echo '	 	<button class="type" name="type" value="3" style="background: url(image/ship3.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>';
+						echo '	 </form>';
+						echo '	<form method="POST" action="main.php">';
+						echo '  	<button class="type" name="type" value="4" style="background: url(image/ship4.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>';
+						echo '	 </form>';
+						echo '	<form method="POST" action="main.php">';
+						echo '		<button class="type" name="type" value="5" style="background: url(image/ship5.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>';
+						echo '	 </form>';
+						echo '</div>';
+						echo '<div class="ship_direction">';
+						echo '	<form method="POST" action="main.php">';
+						echo '		<button class="direction" name="direction" value="up"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>';
+						echo '	 </form>';
+						echo '	<form method="POST" action="main.php">';
+						echo '		<button class="direction" name="direction" value="left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>';
+						echo '  </form>';
+						echo '	<form method="POST" action="main.php">';
+						echo '		<button class="direction" name="direction" value="right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>';
+						echo '	 </form>';
+						echo '	<form method="POST" action="main.php">';
+						echo '		<button class="direction" name="direction" value="down"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>';
+						echo '	 </form>';
+						echo '</div>';
+						echo 'Per inserire una type seleziona il tipo e la direction. In seguito clicca sulla cella da cui far partire la type';
+						echo 'errore: '.$messageError;
+					} else {
+						echo '<div class="info_ship_title">Game start</div>';
+					}
+					 ?>
+            <!-- <div class="info_ship_title">Game info</div> -->
+						<!-- <div class="info_ship_content"> -->
 <!-- 	            <a href="?type=2">3 - Navi ||</a><p> -->
 <!-- 	            <a href="?type=3">2 - Navi |||</a><p> -->
 <!-- 	            <a href="?type=4">2 - Navi ||||</a><p> -->
 <!-- 	            <a href="?type=5">1 - Navi |||||</a><p>  -->
-	            <form method="POST" action="main.php">
+	            <!-- <form method="POST" action="main.php">
 	            	<button class="type" name="type" value="2" style="background: url(image/ship2.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
-	            </form>
-	            <form method="POST" action="main.php">
+	            </form> -->
+	            <!-- <form method="POST" action="main.php">
 	    	        <button class="type" name="type" value="3" style="background: url(image/ship3.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
-	            </form>
-	            <form method="POST" action="main.php">
+	            </form> -->
+	            <!-- <form method="POST" action="main.php">
 	            	<button class="type" name="type" value="4" style="background: url(image/ship4.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
-	            </form>
-	            <form method="POST" action="main.php">
+	            </form> -->
+	            <!-- <form method="POST" action="main.php">
 	         	   <button class="type" name="type" value="5" style="background: url(image/ship5.png); background-repeat: no-repeat; width:300px; height: 60px;"></button>
-	   	        </form>
-   	        </div>
+	   	        </form> -->
+   	        <!-- </div> -->
 
-            <div class="ship_direction">
-	            <form method="POST" action="main.php">
+            <!-- <div class="ship_direction"> -->
+	            <!-- <form method="POST" action="main.php">
             		<button class="direction" name="direction" value="up"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
-            	</form>
-                <form method="POST" action="main.php">
+            	</form> -->
+                <!-- <form method="POST" action="main.php">
               		<button class="direction" name="direction" value="left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-              	</form>
-              	<form method="POST" action="main.php">
+              	</form> -->
+              	<!-- <form method="POST" action="main.php">
              		<button class="direction" name="direction" value="right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-              	</form>
-            	<form method="POST" action="main.php">
+              	</form> -->
+            	<!-- <form method="POST" action="main.php">
              		<button class="direction" name="direction" value="down"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
-              	</form>
-        	</div>
+              	</form> -->
+        	<!-- </div> -->
 
-            Per inserire una type seleziona il tipo e la direction. In seguito clicca sulla cella da cui far partire la type
-            <?php echo 'errore: '.$messageError?>
+            <!-- Per inserire una type seleziona il tipo e la direction. In seguito clicca sulla cella da cui far partire la type -->
     	</div>
     </body>
 </html>
