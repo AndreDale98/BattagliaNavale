@@ -5,14 +5,17 @@ require_once 'Classes/Ship.php';
 class Table {
 
 	private $tableUser = array();
+
 	private $tableCPU = array();
+	private $tableCPUUser = array();
+
 	private $ships = array();
 
 	private $message = "";
 	private $counters = array(2 => 3, 3 => 2, 4 => 2, 5 => 1);
 	private $direction = array(0 => "up", 1 => "down", 2 => "right", 3 => "left");
 	private $computerShips = array(0 => 2, 1 => 2, 2 => 2, 3 => 3, 4 => 3, 5 => 4, 6 => 4, 7 => 5);
-	private $gameState = "preparation";
+	private $gameState = 0;
 
 	public function __construct(){
 		$this->initializeTable();
@@ -31,8 +34,26 @@ class Table {
 		return $this->tableUser[$x][$y];
 	}
 
-	public function getTableCPU($x, $y) {
+	public function getTableCPU($x, $y){
 		return $this->tableCPU[$x][$y];
+	}
+
+	public function getTableCPUUser($x, $y) {
+		if($this->tableCPUUser[$x][$y] == 0) {
+			return "#668DE8";
+		} elseif ($this->tableCPUUser[$x][$y] == 1) {
+			return "green";
+		} else {
+			return "red";
+		}
+	}
+
+	public function userShoot($x, $y) {
+		if($this->tableCPU[$x][$y] == 1) {
+			$this->tableCPUUser[$x][$y] = 1;
+		} else {
+			$this->tableCPUUser[$x][$y] = 2;
+		}
 	}
 
 	public function getGameState() {
@@ -43,11 +64,8 @@ class Table {
 		for ($i=0; $i<10; $i++) {
 			for ($ii=0; $ii<10; $ii++) {
 				$this->tableUser[$i][$ii] = "";
-			}
-		}
-		for ($i=0; $i<10; $i++) {
-			for ($ii=0; $ii<10; $ii++) {
-				$this->tableCPU[$i][$ii] = "";
+				$this->tableCPU[$i][$ii] = 0;
+				$this->tableCPUUser[$i][$ii] = 0;
 			}
 		}
 	}
@@ -60,13 +78,8 @@ class Table {
 				$randX = rand(0, 9);
 				$randY = rand(0, 9);
 
-				// echo $randX.'-'.$randY.'-'.$randDirection.'-'.$this->computerShips[$i].' => ';
 				if ($this->putShip($this->computerShips[$i],$randDirection, array($randX, $randY), "CPU") == 0) {
-					// echo 'OK<br>';
 					break;
-				} else {
-					// echo 'NO<br>';
-					//$i--;
 				}
 			}
 		}
@@ -75,25 +88,27 @@ class Table {
 	public function moveShip($direction, $case, $x, $y, $player) {
 		for ($i=0; $i<$case; $i++) {
 			if ($direction == 'up') {
-				if ($player == 'CPU') $this->tableCPU[$x][$y] = "O";
-				else $this->tableUser[$x][$y] = "blue";
+				if ($player == 'CPU') $this->tableCPU[$x][$y] = 1;
+				else $this->tableUser[$x][$y] = "black";
 				$y--;
 			} else if($direction == 'left') {
-				if ($player == 'CPU') $this->tableCPU[$x][$y] = "O";
-				else $this->tableUser[$x][$y] = "blue";
+				if ($player == 'CPU') $this->tableCPU[$x][$y] = 1;
+				else $this->tableUser[$x][$y] = "black";
 				$x--;
 			} else if($direction == 'right') {
-				if ($player == 'CPU') $this->tableCPU[$x][$y] = "O";
-				else $this->tableUser[$x][$y] = "blue";
+				if ($player == 'CPU') $this->tableCPU[$x][$y] = 1;
+				else $this->tableUser[$x][$y] = "black";
 				$x++;
 			} else {
-				if ($player == 'CPU') $this->tableCPU[$x][$y] = "O";
-				else $this->tableUser[$x][$y] = "blue";
+				if ($player == 'CPU') $this->tableCPU[$x][$y] = 1;
+				else $this->tableUser[$x][$y] = "black";
 				$y++;
 			}
-		}
-		if(count($this->ships) == 8) {
-			$this->gameState = "startGame";
+			if(count($this->ships) == 8) {
+				$this->gameState = 1;
+			}  else {
+				$this->gameState = 0;
+			}
 		}
 	}
 
@@ -101,45 +116,36 @@ class Table {
 		for($i = 0; $i <= $type; $i++){
 			if($direction == "up"){
 				if ($player == "User") {
-					if($this->tableUser[$x][$y] == "X") return false;
+					if($this->tableUser[$x][$y] == "black") return false;
 				} else {
-					if($this->tableCPU[$x][$y] == "X") return false;
+					if($this->tableCPU[$x][$y] == 1) return false;
 				}
 				$y--;
 			} else if($direction == "down"){
 				if ($player == "User") {
-					if($this->tableUser[$x][$y] == "X") return false;
+					if($this->tableUser[$x][$y] == "black") return false;
 				} else {
-					if($this->tableCPU[$x][$y] == "X") return false;
+					if($this->tableCPU[$x][$y] == 1) return false;
 				}
 				$y++;
 			} else if($direction == "right"){
 				if ($player == "User") {
-					if($this->tableUser[$x][$y] == "X") return false;
+					if($this->tableUser[$x][$y] == "black") return false;
 				} else {
-					if($this->tableCPU[$x][$y] == "X") return false;
+					if($this->tableCPU[$x][$y] == 1) return false;
 				}
 				$x++;
 			} else if($direction == "left"){
 				if ($player == "User") {
-					if($this->tableUser[$x][$y] == "X") return false;
+					if($this->tableUser[$x][$y] == "black") return false;
 				} else {
-					if($this->tableCPU[$x][$y] == "X") return false;
+					if($this->tableCPU[$x][$y] == 1) return false;
 				}
 				$x--;
 			}
 			return true;
 		}
 
-	}
-
-	public function checkIfHit($x, $y) {
-		if($this->tableCPU[$x][$y] == "O"){
-			return $this->tableCPU[$x][$y];
-		}
-		else {
-			// echo "not hit";
-		}
 	}
 
 	public function putShip($type, $direction, $position, $player = "User") {

@@ -1,7 +1,6 @@
 .body {
-    background-image: url("image/background.jpg");
+    background-color: black;
     width: auto;
-    //background-repeat: no-repeat;
     color: white;
 }
 
@@ -10,8 +9,8 @@ a:link {
 }
 
 .login {
-    height: 40%;
-    width: 50%;
+    height: 50%;
+    width: 60%;
     border: 3px solid black;
     margin: 10% auto;
     border-radius: 20px;

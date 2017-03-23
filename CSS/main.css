@@ -1,5 +1,5 @@
 .body {
-    background-image: url("image/background.jpg");
+    background-color: black;
     width: auto;
     color: grey;
 }
@@ -71,7 +71,7 @@
     height: 40px;
     font-size: 40px;
     color: green;
-    background-color: blue;
+    background-color: #668DE8;
 }
 
 .cell {

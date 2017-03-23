@@ -1,7 +1,6 @@
 .body {
-    background-image: url("image/background.jpg");
+  background-color: black;
     width: auto;
-    background-repeat: no-repeat;
     color: white;
 }
 
